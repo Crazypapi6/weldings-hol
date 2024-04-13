@@ -1,0 +1,11 @@
+streamlit
+pandas
+sqlite3
+numpy
+streamlit_extras
+streamlit_option_menu
+streamlit_cookies_manager
+tailwindCSS
+paypal
+paynow
+openai
