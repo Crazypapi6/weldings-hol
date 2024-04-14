@@ -64,84 +64,109 @@ def run():
                             help="Contact me on whatsapp",
                              use_container_width=True)      
         st.divider()
-        
-        st.subheader(
+
+        # start of the products page
+        st.write(":gray[**This is our most latest produce**]")
+        image_column,text_column = st.columns(2)
+        with image_column:
+            container = st.container(border=True,height=250)
+            container.image("products/item7.jpg")
+        with text_column:
+            with st.container():
+                st.subheader(':gray[Yeezy Slides 20''s'' @ $60]', help="Deliveries will be made within 72 hours for free")
+                st.info("There are only 4 left")
+                st.divider()
+                with st.container(border=True):
+                    st.markdown("""
+                            :gray[*Kanye West Release*]
+                            :green[*Long Lasting*]
+                            :blue[*Comfortable*]
+                            """)   
+        st.write(
             ":gray[**Top products**]"
         )
         col1 , col2 , col3 = st.columns(3)
         with col1:
-             container = st.container(border=False,
+             container = st.container(border=True,
                                       height=250)
-             container.image("images/local.jpg")
+             container.image("products/item1.jpg")
              st.link_button('Order', 
                             url= "https://www.instagram.com/reel/C1M",
                             help="View product specs and purchase page",
-                            type= 'primary',
                              use_container_width=True)
+             st.markdown("""
+                        :green[Palm Angels T.shirts] 
+                         """)
         with col2:
-              container = st.container(border=False,
-                                      height=250)
-              container.image("images/local.jpg")
-              st.link_button('Order', 
-                            url= "https://www.instagram.com/reel/C1M",
-                            help="View product specs and purchase page",
-                            type= 'primary',
-                             use_container_width=True)
-        with col3:
-            container = st.container(border=False,
-                                      height=250)
-            container.image("images/local.jpg")
+            container = st.container(border=True,height=250)
+            container.image("products/item2.jpg")
             st.link_button('Order', 
                             url= "https://www.instagram.com/reel/C1M",
                             help="View product specs and purchase page",
-                            type= 'primary',
                              use_container_width=True)
-        st.divider()   
+            st.markdown("""
+                        :green[Yeezy 350 splys] 
+                         """)
+
+        with col3:
+            container = st.container(border=True,height=250)
+            container.image("products/item19.jpg")
+            st.link_button('Order', 
+                            url= "https://www.instagram.com/reel/C1M",
+                            help="View product specs and purchase page",
+                             use_container_width=True)
+            st.markdown("""
+                        :green[Nike Female Gym set piece] 
+                         """)
+        
+        st.divider() 
+        col4, col5, col6 = st.columns(3)  
+        
+        with col4:
+            container = st.container(border=True,height=250)
+            container.image("products/item12.jpg")
+            st.link_button('Order', 
+                            url= "https://www.instagram.com/reel/C1M",
+                            help="View product specs and purchase page",
+                             use_container_width=True)
+            st.markdown("""
+                        :green[All converse shoes] 
+                         """)
+            
+        with col5:
+            container = st.container(border=True,height=250)
+            container.image("products/item16.jpg")
+            st.link_button('Order', 
+                            url= "https://www.instagram.com/reel/C1M",
+                            help="View product specs and purchase page",
+                             use_container_width=True)
+            st.markdown("""
+                        :green[Designer T.Shirts] 
+                         """)
+            
+        with col6:
+            container = st.container(border=True,height=250)
+            container.image("products/item17.jpg")
+            st.link_button('Order', 
+                            url= "https://www.instagram.com/reel/C1M",
+                            help="View product specs and purchase page",
+                             use_container_width=True)
+            st.markdown("""
+                        :green[Nike female casual set piece] 
+                         """)
+            
+        st.divider()
 
         long_text = "Lorem ipsum. " * 1000
-        with st.container(height= 520):
-            st.subheader(":brown[Promotion Products]")
+        with st.container(border=False):
+            st.subheader(":blue[Promotion Products]")
             st.image(
-              image="images/local.jpg",
+              image="products/hoddie.jpg",
               caption="Products are cut off by 25%"
             )
             st.link_button('View More', 
                             url= "wa.me/",
                             help="View product specs and purchase page",
-                             use_container_width=True)
-
-        st.subheader(
-            ":gray[**More products**]"
-        )
-        col4, col5 , col6= st.columns(3)   
-        with col4:
-            container = st.container(border=True,
-                                      height=250)
-            container.image("images/local.jpg")
-            st.link_button('Order', 
-                            url= "https://www.instagram.com/reel/C1M",
-                            help="View product specs and purchase page",
-                            type= 'primary',
-                             use_container_width=True)
-
-        with col5:
-            container = st.container(border=True,
-                                      height=250)
-            container.image("images/local.jpg")
-            st.link_button('Order', 
-                            url= "https://www.instagram.com/reel/C1M",
-                            help="View product specs and purchase page",
-                            type= 'primary',
-                             use_container_width=True)
-
-        with col6:
-            container = st.container(border=True,
-                                      height=250)
-            container.image("images/local.jpg")
-            st.link_button('Order', 
-                            url= "https://www.instagram.com/reel/C1M",
-                            help="View product specs and purchase page",
-                            type= 'primary',
                              use_container_width=True)
     with tab2:
         st.header(
@@ -317,7 +342,7 @@ unsafe_allow_html=True
                 st.write("**Rate This Service**")
                 slider_val = st.slider("How do you rate this app", help = "Slide to the desired percentage")
                 checkbox_val = st.checkbox("Do you find this app helpful", help = "Check the box if True")
-                submitted = st.form_submit_button("Submit")
+                submitted = st.form_submit_button("Rate")
                 if submitted:
                     st.write("Rating", slider_val, "Helpful", checkbox_val)
 
