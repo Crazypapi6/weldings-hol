@@ -96,7 +96,7 @@ list = [...]
 ===
 
 * [python license]()
-
+<!--
 A. HISTORY OF THE SOFTWARE
 ==========================
 
@@ -144,3 +144,4 @@ Footnotes:
 (1) GPL-compatible doesn't mean that we're distributing Python under
     the GPL.  All Python licenses, unlike the GPL, let you distribute
     a modified version without making your changes open source
+!-->
