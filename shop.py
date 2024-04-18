@@ -21,6 +21,8 @@ def _update_logger() -> None:
     _logger.update_formatter()
     _logger.init_tornado_logs()
 
+from urllib.error import URLError
+
 def run():
     st.set_page_config(page_title="Weldings Hol.",page_icon=None, layout= "centered",menu_items={'Get Help':'https://github.com/Crazypapi6','Report a bug':'https://github.com/Crazypapi6'})
    
@@ -345,6 +347,16 @@ unsafe_allow_html=True
                 submitted = st.form_submit_button("Rate")
                 if submitted:
                     st.write("Rating", slider_val, "Helpful", checkbox_val)
+
+        def e():
+            if URLError:
+                st.error(
+            """
+            **This app requires internet access.**
+            Connection error: %s
+        """
+            % e.reason
+        )
 
 if __name__ == "__main__":
     run()
