@@ -1,0 +1,22 @@
+container{
+    padding: initial;
+    background-color: antiquewhite;
+    border-radius:5px;
+    border: 2px solid #ccc;
+    border-color: aliceblue;
+}
+
+icon{
+    color:gray;
+    font-size: 15px;
+}
+
+nav-link{
+    color:gray;
+    font-size: 12px;
+    text-align:initial;
+    margin:10px;
+}
+nav-link-selected{
+    background-color:white;
+}

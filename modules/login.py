@@ -1,32 +1,95 @@
+import yaml
 import streamlit as st
-from streamlit_login_auth_ui.widgets import __login__
-import json
-import pandas as pd
+from yaml.loader import SafeLoader
+import streamlit_authenticator as stauth
+from streamlit_authenticator.utilities.exceptions import (CredentialsError,
+                                                          ForgotError,
+                                                          LoginError,
+                                                          RegisterError,
+                                                          ResetError,
+                                                          UpdateError) 
 
+# Loading config file
+with open('modules/config.yaml', 'r', encoding='utf-8') as file:
+    config = yaml.load(file, Loader=SafeLoader)
 
-class Login:
-    def __init__(self, users_auth_file, courier_auth_token, db):
-        self.users_auth_file = users_auth_file
-        self.courier_auth_token = courier_auth_token
-        self.db = db
+# Creating the authenticator object
+authenticator = stauth.Authenticate(
+    config['credentials'],
+    config['cookie']['name'],
+    config['cookie']['key'],
+    config['cookie']['expiry_days'],
+    config['pre-authorized']
+)
 
-    def login_auth(self):
-        ret = __login__(
-            auth_token=self.courier_auth_token,
-            company_name="Saint Inc.",
-            width=200,
-            height=250,
-            logout_button_name='Logout',
-            hide_menu_bool=False,
-            hide_footer_bool=False,
-            lottie_url='https://assets2.lottiefiles.com/packages/lf20_jcikwtux.json',
-            users_auth_file=self.users_auth_file,
-            sqlitedb=self.db
-        )
-        return ret
+# Creating a login widget
+try:
+    authenticator.login()
+except LoginError as e:
+    st.error(e)
 
+if st.session_state["authentication_status"]:
+    authenticator.logout()
+    st.write(f'Welcome *{st.session_state["name"]}*')
+    st.title('Some content')
+elif st.session_state["authentication_status"] is False:
+    st.error('Username/password is incorrect')
+elif st.session_state["authentication_status"] is None:
+    st.warning('Please enter your username and password')
 
-    def get_users_info(self):
-        with open(self.users_auth_file, 'r') as f:
-            data = json.load(f)
-        return pd.DataFrame.from_dict(data)
+# Creating a password reset widget
+if st.session_state["authentication_status"]:
+    try:
+        if authenticator.reset_password(st.session_state["username"]):
+            st.success('Password modified successfully')
+    except ResetError as e:
+        st.error(e)
+    except CredentialsError as e:
+        st.error(e)
+
+# # Creating a new user registration widget
+try:
+    (email_of_registered_user,
+        username_of_registered_user,
+        name_of_registered_user) = authenticator.register_user(pre_authorization=False)
+    if email_of_registered_user:
+        st.success('User registered successfully')
+except RegisterError as e:
+    st.error(e)
+
+# # Creating a forgot password widget
+try:
+    (username_of_forgotten_password,
+        email_of_forgotten_password,
+        new_random_password) = authenticator.forgot_password()
+    if username_of_forgotten_password:
+        st.success('New password sent securely')
+        # Random password to be transferred to the user securely
+    elif not username_of_forgotten_password:
+        st.error('Username not found')
+except ForgotError as e:
+    st.error(e)
+
+# # Creating a forgot username widget
+try:
+    (username_of_forgotten_username,
+        email_of_forgotten_username) = authenticator.forgot_username()
+    if username_of_forgotten_username:
+        st.success('Username sent securely')
+        # Username to be transferred to the user securely
+    elif not username_of_forgotten_username:
+        st.error('Email not found')
+except ForgotError as e:
+    st.error(e)
+
+# # Creating an update user details widget
+if st.session_state["authentication_status"]:
+    try:
+        if authenticator.update_user_details(st.session_state["username"]):
+            st.success('Entries updated successfully')
+    except UpdateError as e:
+        st.error(e)
+
+# Saving config file
+with open('modules/config.yaml', 'w', encoding='utf-8') as file:
+    yaml.dump(config, file, default_flow_style=False)

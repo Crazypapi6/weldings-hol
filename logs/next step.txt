@@ -1,0 +1,6 @@
+session state for forms and chat input
+sqlite db intergration for maning the shop
+using db to display products and prices in the app
+connect db to payment method
+mapbox token then pydeck for rendering graphics
+phone number tracker for deliveries 

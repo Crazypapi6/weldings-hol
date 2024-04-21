@@ -1,2 +1,16 @@
 [theme]
 base="light"
+
+[client]
+showSidebarNavigation = true
+toolbarMode = "auto"
+
+[runner]
+enforceSerializableSessionState = true
+
+[server]
+cookieSecret = "06e375f8ccc68d94efea337199c6a29fae7d25c4f527b443cbeeba85a9852d47"
+enableStaticServing = false
+
+[logger]
+level = "debug"

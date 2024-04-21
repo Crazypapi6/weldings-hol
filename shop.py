@@ -1,7 +1,4 @@
 import streamlit as st
-from streamlit import logger as _logger
-from streamlit import config as _config
-from streamlit.version import STREAMLIT_VERSION_STRING as _STREAMLIT_VERSION_STRING
 
 import numpy as np
 import pandas as pd
@@ -12,29 +9,22 @@ from streamlit_extras.colored_header import colored_header
 from streamlit_extras.metric_cards import style_metric_cards
 from streamlit_extras.streaming_write import write
 from streamlit_extras.mention import mention
+from streamlit_extras.app_logo import add_logo
 from streamlit_extras.badges import badge
 
 LOGGER = get_logger(__name__)
 
-def _update_logger() -> None:
-    _logger.set_log_level(_config.get_option("logger.level").upper())
-    _logger.update_formatter()
-    _logger.init_tornado_logs()
-
-from urllib.error import URLError
+#from modules import login
 
 def run():
-    st.set_page_config(page_title="Weldings Hol.",page_icon=None, layout= "centered",menu_items={'Get Help':'https://github.com/Crazypapi6','Report a bug':'https://github.com/Crazypapi6'})
-   
-    __version__ = _STREAMLIT_VERSION_STRING
-    _config.on_config_parsed(_update_logger, True)
-    
+    st.set_page_config(page_title="Shopping 24.",page_icon=None, layout= "centered")
+    #add_logo(logo_url="images\components\cow.jpg", height=50)
     colored_header(
-             label="Weldings Hol.",
+             label="Shopping 24.",
              description="Browse through our shop to view products and place orders",
              color_name="gray-70"
              )
-    st.sidebar.header(":gray[Weldings Hol.]")
+    st.sidebar.header(":gray[Shopping 24..]")
     st.toast(':gray[Welding Hol.]', icon="🛠️")
 
     tab1, tab2, tab3 = st.tabs([":gray[**Home**]", ":gray[**Requests and Promos**]", ":gray[**Contact Us**]"])
@@ -347,16 +337,6 @@ unsafe_allow_html=True
                 submitted = st.form_submit_button("Rate")
                 if submitted:
                     st.write("Rating", slider_val, "Helpful", checkbox_val)
-
-        def e():
-            if URLError:
-                st.error(
-            """
-            **This app requires internet access.**
-            Connection error: %s
-        """
-            % e.reason
-        )
 
 if __name__ == "__main__":
     run()
